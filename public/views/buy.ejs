@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+<link rel="stylesheet" href="homepagedesign.css" />
+<link rel="stylesheet" href="login window.css" />
+<link rel="stylesheet" href="table.css">
+<link href='https://fonts.googleapis.com/css?family=Alex Brush' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="headWelcome" >
+    <div class="topHead" style="background: linear-gradient(to bottom, #4caf50 0%, #80bd5f 100%); height: 90px;"></div>
+    <div class="downHead" style="background-color: white; height: 90px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);"></div>
+    <img src="logoShape.png" style="position:relative;left:700px;top:-180px;width: 330px;height: 180px;" alt="shape">
+    <h1 style="position:relative;top:-300px;color: white; left:785px;font-family: 'Exo', sans-serif;">Auto shop</h1>
+</div>
+
+<div class="menuHead" style="position: relative;height: 100px; left:550px; width: 700px; top:-260px;">
+<button class="menuButton" style="position: relative; " onclick="movProdPage()">מה חדש</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movConnectPage()">צרו קשר</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movAboutPage()">אודות</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveBuyPage()">רכישת סל</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveHomePage()">דף הבית</button>
+</div>
+
+    <table id="myTable"class="ruleToRemove" style="left: 550px; top:-285px;font-family: Assistant;
+  text-align: center;position: relative;border-collapse: collapse;margin: 0px 0px;font-size: 20px;min-width: 240px;border-radius: 30px 30px 0px 0px;overflow: hidden;box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);border-collapse: collapse; ">
+        <tbody>
+            <tr>
+                <td>דוב</td>
+                <td>כישורית</td>
+                <td>סולטן</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+<div class="table-wrapper-scroll-y my-custom-scrollbar" style="position: relative;left:-730px; top:-285px; height: 500px;">
+    <table class="table table-bordered table-striped mb-0">
+<div class="centered">
+<div class="content-table" style="position: relative; left:880px;" data-url="/basicNames"></div>
+</div>
+    </table>
+  </div>
+
+<button class="submit_list" style="top:829px;left:557px;border-bottom-left-radius: 50px;border-bottom-right-radius: 50px;">
+    <div class="popup" style="width: 537px;"onclick="movesubmitLst()">סיימתי
+  <span class="popuptext" id="myPopup">לא הכנסת פריטים לרשימת הקניות</span>
+</div></button></div>
+
+<div class="w3-content w3-section" style="position:relative;top:-885px;left:1450px;max-width:443px; max-height: 300px;">
+  <img class="mySlides" src="1.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="2.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="3.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="4.jpg" style="width:100%;border-bottom-right-radius:30px;">
+</div>
+</body>
+<script>
+    class Veg{
+  constructor(basicName, quantity) {
+    this.basicName = basicName;
+    this.quantity = quantity;
+  }
+}
+
+//any item in the shopping cart list from this class
+class Prod{
+    constructor(basicName,realName, quantity, link=null,cost=null) {
+    this.basicName = basicName;
+    this.quantity = quantity;
+    this.realName=realName;
+    this.link = link;
+    this.cost=cost;
+  }
+}
+
+class  helpClass {
+    constructor(basicName,realName, price, prod_link, prod_name) {
+        this.basicName=basicName;
+        this.realName = realName;
+        this.price = price;
+        this.prod_link = prod_link;
+        this.prod_name = prod_name;
+    }
+}
+
+//main class that allow us to do all of the calculation and updatings
+//when we change the product list
+class  Cart {
+        constructor(userId){
+            this.userId = userId
+            this.products = []
+            this.prodsKishurit=[]
+            this.missKishurit=[]
+            this.prodsSultan=[]
+            this.missSultan=[]
+            this.prodsDov=[]
+            this.missDov=[]
+        }
+        //while add quantity to the shopping cart, update it
+        addProduct(name, q) {
+            var foundIndex = this.findProduct(name);
+            if(foundIndex === -1) {
+                var newProduct= new Veg(name, q)
+                this.products.push(newProduct)
+                return
+            }
+            else {
+                this.products[foundIndex].quantity = q
+            }
+        }
+        //this function add product to supplier list
+        addSupplierLst(nameProd, nameSupplier, q, realName,link=null,cost) {
+            if(nameSupplier==="Kishurit") {
+                var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                if(foundIndex === -1) {
+                    var newProduct= new Veg(nameProd, q)
+                    var newProd=new Prod(nameProd,realName,q,null,cost)
+                    this.prodsKishurit.push(newProd)
+                    return
+                }
+                else {
+                    this.prodsKishurit[foundIndex].quantity = q
+                }
+            }
+            else if(nameSupplier==="Sultan") {
+                var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                if(foundIndex === -1) {
+                    var newProduct= new Veg(nameProd, q)
+                    var newProd=new Prod(nameProd,realName,q,null,cost)
+                    this.prodsSultan.push(newProd)
+                    return
+                }
+                else {
+                    this.prodsSultan[foundIndex].quantity = q
+                }
+            }
+            else if(nameSupplier==="Dov") {
+                    var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1) {
+                        var newProduct= new Veg(nameProd, q)
+                        var newProd=new Prod(nameProd,realName,q,link,cost)
+                        this.prodsDov.push(newProd)
+                        return
+                    }
+                    else {
+                        this.prodsDov[foundIndex].quantity = q
+                    }
+            }
+        }
+        addMissSupplierLst(nameProd, nameSupplier,q) {
+            if(nameSupplier==="Kishurit") {
+                var foundIndex = this.findProdInMissSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1) {
+                        var newProduct= new Veg(nameProd, q)
+                        this.missKishurit.push(newProduct)
+                        return
+                    }
+                    else {
+                        return
+                    }
+            }
+            else if(nameSupplier==="Sultan") {
+                    var foundIndex = this.findProdInMissSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1) {
+                        var newProduct= new Veg(nameProd, q)
+                        this.missSultan.push(newProduct)
+                        return
+                    }
+                    else {
+                        return
+                    }
+            }
+            else if(nameSupplier==="Dov") {
+                    var foundIndex = this.findProdInMissSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1) {
+                        var newProduct= new Veg(nameProd, q)
+                        this.missDov.push(newProduct)
+                        return
+                    }
+                    else {
+                        return
+                    }
+                }
+            }
+        subtractSupplierLst(nameProd, nameSupplier, q) {
+            if(nameSupplier==="Kishurit") {
+                var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                if(foundIndex === -1)
+                    return
+                else {
+                    if(q === 0)
+                        this.prodsKishurit.splice(foundIndex, 1);
+                    else
+                        this.prodsKishurit[foundIndex].quantity = q;
+                }
+            }
+            else if(nameSupplier==="Sultan") {
+                    var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1)
+                        return
+                    else {
+                        if(q === 0)
+                            this.prodsSultan.splice(foundIndex, 1);
+                        else
+                            this.prodsSultan[foundIndex].quantity = q;
+                    }
+            }
+            else if(nameSupplier==="Dov") {
+                    var foundIndex = this.findProdInSupplierLst(nameProd,nameSupplier);
+                    if(foundIndex === -1)
+                        return
+                    else {
+                        if(q === 0)
+                            this.prodsDov.splice(foundIndex, 1);
+                        else
+                            this.prodsDov[foundIndex].quantity = q;
+                    }
+                }
+            }
+        subtractProduct(name,q) {
+            var foundIndex = this.findProduct(name);
+            if(foundIndex === -1)
+                return
+            else {
+                if(q === 0)
+                    this.products.splice(foundIndex, 1);
+                else
+                    this.products[foundIndex].quantity = q;
+            }
+        }
+
+        calculateSum(supName, newPrice) {
+            var prod;
+            if(supName=="dov") {
+                prod = this.prodsDov;
+                costDov=0.0
+            }
+            if(supName=="sultan") {
+                prod = this.prodsSultan;
+                costSultan=0.0;
+            }
+            if(supName=="kishurit") {
+                prod = this.prodsKishurit;
+                costKishurit=0.0;
+            }
+
+            for(let v of prod){
+                    console.log("costD:"+costDov);
+                    if(v.basicName==r.basicName) {
+                        costDov += (parseFloat(newPrice) * v.quantity);
+                        costDov=Math.round(costDov * 100) / 100;
+                    }
+                    else {
+                        costDov += (v.quantity * parseFloat(v.cost));
+                        costDov=Math.round(costDov * 100) / 100;
+                    }
+                }
+
+            console.log("cost dov:"+costDov);
+        }
+
+        //get product name and supplier, and search the index of it in the supplier's list
+        findProdInSupplierLst(nameProd,nameSupplier) {
+            if(nameSupplier==="Kishurit") {
+                let i=0;
+                for(let val of this.prodsKishurit)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+            else if(nameSupplier==="Sultan") {
+                let i=0;
+                for(let val of this.prodsSultan)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+            else if(nameSupplier==="Dov") {
+                let i=0;
+                for(let val of this.prodsDov)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+        }
+        findProdInMissSupplierLst(nameProd,nameSupplier) {
+            if(nameSupplier==="Kishurit") {
+                let i=0;
+                for(let val of this.missKishurit)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+            else if(nameSupplier==="Sultan") {
+                let i=0;
+                for(let val of this.missSultan)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+            else if(nameSupplier==="Dov") {
+                let i=0;
+                for(let val of this.missDov)
+                {
+                    if(val.basicName===nameProd)
+                        return i;
+                    else
+                        i++;
+                }
+                return -1;
+            }
+        }
+        findProduct(name) {
+            let i=0;
+            for(let val of this.products)
+            {
+                if(val.basicName===name)
+                    return i;
+                else
+                    i++;
+            }
+            return -1;
+        }
+
+        //in any time of increase or decrease, update the shopping cart list of the chosen supplier
+        updateSupplierLst(nameProd, nameSupplier, realName,link=null,cost) {
+            if(nameSupplier==="kishurit") {
+                var foundIndex = this.findProdInSupplierLst(nameProd,'Kishurit');
+                if(foundIndex === -1) {
+                    return
+                }
+                else {
+
+                    var q=this.prodsKishurit[foundIndex].quantity;
+                    this.prodsKishurit.splice(foundIndex, 1);
+                    var newProd=new Prod(nameProd,realName,q,null,cost)
+                    this.prodsKishurit.push(newProd)
+                }
+            }
+
+            else if(nameSupplier==="sultan") {
+                var foundIndex = this.findProdInSupplierLst(nameProd,'Sultan');
+                if(foundIndex === -1) {
+                    return
+                }
+                else {
+                    console.log("%%%%%");
+                    var q=this.prodsSultan[foundIndex].quantity;
+                    this.prodsSultan.splice(foundIndex, 1);
+                    var newProd=new Prod(nameProd,realName,q,null,cost)
+                    this.prodsSultan.push(newProd)
+                }
+            }
+            else if(nameSupplier==="dov") {
+                    var foundIndex = this.findProdInSupplierLst(nameProd,'Dov');
+                    if(foundIndex === -1) {
+                        console.log("^^^");
+                        return
+                    }
+                    else {
+                        var q=this.prodsDov[foundIndex].quantity;
+                        this.prodsDov.splice(foundIndex, 1);
+                        var newProd=new Prod(nameProd,realName,q,link,cost)
+                        this.prodsDov.push(newProd);
+                        console.log("nnnnnname prod:"+nameProd+" real name: "+realName+" link: "+link);
+                    }
+            }
+        }
+
+       //when the user change the product by selection, we need to update the total sum
+        //of the specific supplier which changed, and update the shopping cart list
+        //by changing the old product into the new one
+        calcTotalSum(changeCost,basicName,supName, realName, link){
+            console.log("get into");
+            if(supName=='kishurit') {
+                costKishurit=0.0;
+                for(var r of this.prodsKishurit)
+                {
+                    if(basicName==r.basicName)
+                        costKishurit+=(parseInt(r.quantity)*parseFloat(changeCost));
+                    else
+                        costKishurit+=(parseInt(r.quantity)*parseFloat(r.cost));
+                }
+                this.updateSupplierLst(basicName, supName, realName,null,changeCost);
+            }
+            if(supName=='dov') {
+                costDov=0.0;
+                for(var r of this.prodsDov) {
+                    console.log("r.basic name: "+r.basicName+ " basic prod"+basicName);
+                    if(basicName==r.basicName) {
+                        console.log("^^^^");
+                        costDov += (parseInt(r.quantity) * parseFloat(changeCost));
+                        costDov=Math.round(costDov * 100) / 100;
+                        console.log("total dov"+costDov+" q "+r.quantity+" cost prod"+changeCost)
+                    }
+                    else {
+                        costDov += (parseInt(r.quantity) * parseFloat(r.cost));
+                        costDov=Math.round(costDov * 100) / 100;
+                        console.log("total dov"+costDov+" q "+r.quantity+" cost prod"+changeCost)
+                    }
+                }
+                console.log("b-e-f-o-o-r-e: basic name:"+basicName+" sup: "+supName+" real: "+realName+" link: "+link+" new cost:"+changeCost)
+                this.updateSupplierLst(basicName, supName, realName,link,changeCost);
+            }
+            if(supName=='sultan') {
+                console.log("^^&&&&&^^");
+                //console.log("get into 2");
+                costSultan=0.0;
+                console.log("total sultan"+costSultan)
+                for(var r of this.prodsSultan) {
+                    //console.log("r.basic name: "+r.basicName+ " basic prod"+basicName);
+                    if(basicName==r.basicName) {
+                        console.log("^^^^");
+                        costSultan += (parseInt(r.quantity) * parseFloat(changeCost));
+                        //console.log("total sultan"+costSultan+" q "+r.quantity+" cost prod"+changeCost)
+                    }
+                    else {
+                        costSultan += (parseInt(r.quantity) * parseFloat(r.cost));
+                        //console.log("total sultan"+costSultan+" q "+r.quantity+" cost prod"+changeCost)
+                    }
+                }
+                this.updateSupplierLst(basicName, supName, realName,null,changeCost);
+            }
+            tbl.innerHTML = `<tbody>
+                <tr>
+                    <td>דוב</td>
+                    <td>כישורית</td>
+                    <td>סולטן</td>
+                </tr>
+                <tr>
+                    <td>${costDov}</td>
+                    <td>${costKishurit}</td>
+                    <td>${costSultan}</td>
+                </tr>
+                </tbody>`;
+        }
+
+}
+//move button functions
+function moveProdPage() {
+  location.href = '/Products2';
+}
+function moveHomePage() {
+  location.href = "/new";
+}
+function moveBuyPage() {
+  location.href = "/buy";
+}
+function movAboutPage() {
+    location.href = "/About";
+}
+function movConnectPage() {
+    location.href = "/Connect";
+}
+function movWhatsNewPage() {
+    location.href = "/WhatsNew";
+}
+function movesubmitLst() {
+    console.log(shoppingCart);
+    if(shoppingCart.products.length===0) {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
+    }
+    else {
+        window.localStorage.setItem('Shopping cart list', JSON.stringify(shoppingCart));
+        window.localStorage.setItem('sum sultan', JSON.stringify(costSultan));
+        window.localStorage.setItem('sum kishurit', JSON.stringify(costKishurit));
+        window.localStorage.setItem('sum dov', JSON.stringify(costDov));
+        location.href = '/totalSum';
+    }
+}
+
+var kishurit_prods=[];
+    var dov_prods=[];
+    var sultan_prods=[];
+    var kishurit_price='-';
+    var kishurit_realName='-';
+    var kishurit_prod_name='-';
+    var sultan_realName='-';
+    var sultan_price='-';
+    var sultan_prod_name='-';
+    var dov_realName='-';
+    var dov_price='-';
+    var dov_prod_link = '-';
+    var dov_prod_name='-';
+    //main function that fill the product table according to the DB information
+    //take the veg names from basic veg table and their costs from the different suppliers
+    async function updateTable(root){
+        const table = root.querySelector(".content-table");
+        const response = await fetch('/basicNames');//await fetch("/data");
+        const headers = ['שם מוצר','כמות','סולטן','כישורית','דוב'];
+        const basicNames = await response.json();
+        const response2= await fetch('/basicNamesCost');
+        const allProds=await response2.json();
+        // Clear Table
+        table.querySelector("thead tr").innerHTML = '';
+        table.querySelector("tbody").innerHTML = '';
+         table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th style="display:none;">dov Link</th>`);
+        table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th style="display:none;">dov Real</th>`);
+        table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th style="display:none;">kishurit Real</th>`);
+        table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th style="display:none;">sultan Real</th>`);
+        for (const header of headers){
+            table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th>${ header }</th>`);
+        }
+
+        for (const base of basicNames) {
+            sultan_price = '-';
+            kishurit_price = '-';
+            dov_price = '-';
+            dov_price = '-';
+            kishurit_realName = '-';
+            dov_realName = '-';
+            dov_prod_name='-';
+            sultan_prod_name='-';
+            kishurit_prod_name='-';
+            for (const r of allProds) {
+                if (r.Base_Prod === base.Base_Prod) {
+                    if (r.Prod_Web === 'Sultan') {
+                        sultan_price = r.Prod_Price;
+                        sultan_realName = r.Prod_Id_Web;
+                        sultan_prod_name=r.Prod_Name;
+                        sultan_prods.push(new helpClass(r.Base_Prod,r.Prod_Id_Web,r.Prod_Price,null,r.Prod_Name))
+                    }
+                    if (r.Prod_Web === 'Kishurit') {
+                        kishurit_price = r.Prod_Price;
+                        kishurit_realName = r.Prod_Id_Web;
+                        kishurit_prod_name=r.Prod_Name;
+                        kishurit_prods.push(new helpClass(r.Base_Prod,r.Prod_Id_Web,r.Prod_Price,null,r.Prod_Name))
+                    }
+                    if (r.Prod_Web === 'Dov') {
+                        dov_price = r.Prod_Price;
+                        dov_realName = r.Prod_Id_Web;
+                        dov_prod_link = r.Prod_Id_Web_Link;
+                        dov_prod_name=r.Prod_Name;
+                        dov_prods.push(new helpClass(r.Base_Prod,r.Prod_Id_Web,r.Prod_Price,r.Prod_Id_Web_Link,r.Prod_Name))
+                    }
+                }
+            }
+            //check if there is any quantity of the product. if not- dont allow the client to increase or decrease
+            //quantity from the specific prod
+            if (sultan_price === '-' && kishurit_price === '-' && dov_price === '-') {
+                continue;
+            } else {
+
+                var dov_id_prodName="dov_prodName"+base.Base_Prod;
+                var dov_id_price="dov_price"+base.Base_Prod;
+                var dov_id_realName="dov_realName"+base.Base_Prod;
+                var dov_id_link="dov_link"+base.Base_Prod;
+
+                var kishurit_id_prodName="kishurit_prodName"+base.Base_Prod;
+                var kishurit_id_price="kishurit_price"+base.Base_Prod;
+                var kishurit_id_realName="kishurit_realName"+base.Base_Prod;
+
+                var sultan_id_prodName="sultan_prodName"+base.Base_Prod;
+                var sultan_id_price="sultan_price"+base.Base_Prod;
+                var sultan_id_realName="sultan_realName"+base.Base_Prod;
+
+                var counter_id="counter_"+base.Base_Prod;
+                var baseWithoutSpace=base.Base_Prod;
+                baseWithoutSpace=baseWithoutSpace.replace(" ", "_");
+
+                table.querySelector('tbody').insertAdjacentHTML('beforebegin', `
+                <tr>
+                <td style="display:none;">
+                    <div class='${dov_id_link}' id='${dov_id_link}'>${dov_prod_link}</div>
+
+                </td>
+                <td style="display:none;">
+                    <div class='${dov_id_realName}' id='${dov_id_realName}'>${dov_realName}</div>
+                </td>
+                <td style="display:none;">
+                    <div class='${kishurit_id_realName}' id='${kishurit_id_realName}'>${kishurit_realName}</div>
+                </td>
+                <td style="display:none;">
+                    <div class='${sultan_id_realName}' id='${sultan_id_realName}'>${sultan_realName}</div>
+                </td>
+                <td style="height: 40px;">
+                    <div class="myDIV"><div class='${dov_id_price}' id='${dov_id_price}'>${dov_price}</div></div>
+                    <div class="hide"><div class='${dov_id_prodName}' id='${dov_id_prodName}' style="display: block;color: gray;font-size: 10px;">${dov_prod_name}</div></div>
+                    <select name="prodDov" id="prodDov" style="width: 28px;font-family: Assistant;" onclick="changeSelectionDov('${counter_id}',this,'${dov_id_prodName}','${dov_id_price}','${dov_id_realName}','${dov_id_link}','${base.Base_Prod}')"></select>
+                </td>
+                <td style="height: 40px;">
+                    <div class="myDIV"><div class='${kishurit_id_price}' id='${kishurit_id_price}'>${kishurit_price}</div></div>
+                    <div class="hide"><div class='${kishurit_id_prodName}' id='${kishurit_id_prodName}'>${kishurit_prod_name}</div></div>
+                    <select name="prodKishurit" id="prodKishurit" style="width: 28px;font-family: Assistant;" onclick="changeSelectionKishurit('${counter_id}',this,'${kishurit_id_prodName}','${kishurit_id_price}','${kishurit_id_realName}','${base.Base_Prod}')"></select>
+                </td>
+
+                <td style="height: 40px;">
+                 <div class="myDIV"><div class='${sultan_id_price}' id='${sultan_id_price}'>${sultan_price}</div></div>
+                 <div class="hide"><div class='${sultan_id_prodName}' id='${sultan_id_prodName}'>${sultan_prod_name}</div></div>
+                 <select name="prodSultan" id="prodSultan" style="width: 28px;font-family: Assistant;" onclick="changeSelectionSultan('${counter_id}',this,'${sultan_id_prodName}','${sultan_id_price}','${sultan_id_realName}','${sultan_price}','${base.Base_Prod}')"></select>
+                <td style="height: 40px;">
+                    <div class="counter" id='${counter_id}' data-name=${baseWithoutSpace} sultan_real_name=${sultan_realName} kishurit_real_name=${kishurit_realName}  dov_real_name=${dov_realName}  cost-sultan=${sultan_price}  cost-kishurit=${kishurit_price}  cost-dov=${dov_price} dov-prod-link=${dov_prod_link}>
+                    <span class="down" onclick="decreaseCount(event)" >-</span>
+                    <input type="text" value="0">
+                    <span class="up" onclick="increaseCount(event)">+</span>
+                    </div>
+                </td>
+                <td style="height: 40px;">
+                   ${base.Base_Prod}
+                </td>
+                </tr>
+                `);
+
+                for(const r of dov_prods){
+                    if(r.basicName==base.Base_Prod&&r.prod_name!='-') {
+                        document.getElementById('prodDov').innerHTML += '<option value="'+r.prod_name+'">'+r.prod_name+'</option>';
+                    }
+                }
+
+                for(const r of sultan_prods){
+                    if(r.basicName==base.Base_Prod&&r.prod_name!='-') {
+                        document.getElementById('prodSultan').innerHTML += '<option value="'+r.prod_name+'">'+r.prod_name+'</option>';
+                    }
+                }
+
+                for(const r of kishurit_prods){
+                    if(r.basicName==base.Base_Prod&&r.prod_name!='-') {
+                        document.getElementById('prodKishurit').innerHTML += '<option value="'+r.prod_name+'">'+r.prod_name+'</option>';
+                    }
+                }
+            }
+        }
+    }
+
+// Dov: if we will change the product from the selection, we need to update the sum and the cart list
+    function changeSelectionDov(counterID,e,prodNameID,priceID,realNameID,linkID,base){
+        document.getElementById(prodNameID).innerHTML =e.value ;
+        for(const r of dov_prods){
+            if(r.prod_name==e.value){
+                document.getElementById(priceID).innerHTML = r.price;
+                document.getElementById(realNameID).innerHTML = r.realName;
+                document.getElementById(linkID).innerHTML = r.prod_link;
+                document.getElementById(counterID).setAttribute('cost-dov', r.price);
+                document.getElementById(counterID).setAttribute('dov_real_name', r.realName);
+                document.getElementById(counterID).setAttribute('dov-prod-link', r.prod_link);
+                shoppingCart.calcTotalSum(r.price,base,'dov', r.realName, r.prod_link);
+                console.log("dovvv:  "+r.realName+" link:"+r.prod_link+" real name: "+r.realName);
+                break;
+                }
+            }
+        }
+
+    // Kishurit: if we will change the product from the selection, we need to update the sum and the cart list
+    function changeSelectionKishurit(counterID,e,prodNameID,priceID,realNameID,base){
+        document.getElementById(prodNameID).innerHTML =e.value ;
+        for(const r of kishurit_prods){
+            if(r.prod_name==e.value){
+                document.getElementById(priceID).innerHTML = r.price;
+                document.getElementById(realNameID).innerHTML = r.realName;
+                document.getElementById(counterID).setAttribute('cost-kishurit', r.price);
+                document.getElementById(counterID).setAttribute('kishurit_real_name', r.realName);
+                shoppingCart.calcTotalSum(r.price,base,'kishurit', r.realName, null)
+                break;
+            }
+        }
+    }
+
+    // Sultan: if we will change the product from the selection, we need to update the sum and the cart list
+    function changeSelectionSultan(counterID,e,prodNameID,priceID,realNameID,sultanPrice,base){
+        console.log("SHIMONNNNNNN")
+        document.getElementById(prodNameID).innerHTML =e.value ;
+        for(const r of sultan_prods){
+            if(r.prod_name==e.value){
+                document.getElementById(priceID).innerHTML = r.price;
+                document.getElementById(realNameID).innerHTML = r.realName;
+                document.getElementById(counterID).setAttribute('sultan_real_name', r.realName);
+                document.getElementById(counterID).setAttribute('cost-sultan', r.price);
+                console.log("price: "+r.price+" baseeeee: "+base+" realName: "+r.realName)
+                console.log("beforee add:"+costSultan)
+                shoppingCart.calcTotalSum(r.price,base,'sultan', r.realName, null);
+
+            }
+
+        }
+    }
+
+
+
+    let shoppingCart =new Cart(0);
+    var costSultan=0.0;
+    var costDov=0.0;
+    var costKishurit=0.0;
+    var tbl=document.getElementById("myTable");
+    tbl.classList.add('myTable')
+    //init tables
+    tbl.innerHTML = `<tbody>
+            <tr>
+                <td>דוב</td>
+                <td>כישורית</td>
+                <td>סולטן</td>
+            </tr>
+            <tr>
+                <td>${costDov}</td>
+                <td>${costKishurit}</td>
+                <td>${costSultan}</td>
+            </tr>
+        </tbody>`;
+    for (const root of document.querySelectorAll('.content-table[data-url]')){
+        const table = document.createElement('table');
+        table.classList.add('content-table')
+        table.innerHTML = `
+            <thead>
+                <tr></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Loading</td>
+                </tr>
+            </tbody>
+        `;
+         root.append(table);
+         updateTable(root);
+    }
+    //Allow the slide show in the right page
+    var myIndex = 0;
+    carousel();
+    function carousel() {
+      var i;
+      var x = document.getElementsByClassName("mySlides");
+      for (i = 0; i < x.length; i++) {
+        x[i].style.display = "none";
+      }
+      myIndex++;
+      if (myIndex > x.length) {myIndex = 1}
+      x[myIndex-1].style.display = "block";
+      setTimeout(carousel, 2000); // Change image every 2 seconds
+    }
+    //increase the quantity of a specific product when we press on the '+' btn
+    function increaseCount(event) {
+        var input = event.target.previousElementSibling;
+        var currentVege = event.target.parentElement.getAttribute('data-name')
+        currentVege=currentVege.replace("_", " ");
+        console.log("current vegg"+currentVege);
+        var value = parseInt(input.value, 10);
+        value = isNaN(value) ? 0 : value;
+        value++;
+        input.value = value;
+        shoppingCart.addProduct(currentVege,value);
+        var costS=event.target.parentElement.getAttribute('cost-sultan');
+        console.log("**cost:"+costS);
+        var realNameS=event.target.parentElement.getAttribute('sultan_real_name');
+        //console.log("**realname:"+realNameS);
+        if(costS!='-') {
+            costSultan += parseFloat(costS);
+            shoppingCart.addSupplierLst(currentVege,"Sultan",value,realNameS,null,costS);
+        }
+        else
+            shoppingCart.addMissSupplierLst(currentVege,"Sultan",value);
+        var costD=event.target.parentElement.getAttribute('cost-Dov');
+        var realNameD=event.target.parentElement.getAttribute('Dov_real_name');
+        var prodLinkD = event.target.parentElement.getAttribute('dov-prod-link');
+        if(costD!='-') {
+            costDov += parseFloat(costD);
+            costDov=Math.round(costDov * 100) / 100
+            console.log("i-n-c-r-e-a-s-e dovvv basic name:"+currentVege+" real: "+realNameD+" link: "+prodLinkD+" new cost:"+costD)
+            shoppingCart.addSupplierLst(currentVege,"Dov",value,realNameD,prodLinkD,costD);
+        }
+        else
+            shoppingCart.addMissSupplierLst(currentVege,"Dov",value);
+        var costK=event.target.parentElement.getAttribute('cost-kishurit');
+        var realNameK=event.target.parentElement.getAttribute('kishurit_real_name');
+        if(costK!='-') {
+            costKishurit += parseFloat(costK);
+            shoppingCart.addSupplierLst(currentVege,"Kishurit",value,realNameK,null,costK);
+        }
+        else
+            shoppingCart.addMissSupplierLst(currentVege,"Kishurit",value);
+        tbl.innerHTML = `<tbody>
+            <tr>
+                <td>דוב</td>
+                <td>כישורית</td>
+                <td>סולטן</td>
+            </tr>
+            <tr>
+                <td>${costDov}</td>
+                <td>${costKishurit}</td>
+                <td>${costSultan}</td>
+            </tr>
+        </tbody>`;
+    }
+
+    //decrease the quantity of a specific product when we press on the '-' btn
+    function decreaseCount(event) {
+      var input = event.target.nextElementSibling;
+      var currentVege = event.target.parentElement.getAttribute('data-name');
+      currentVege=currentVege.replace("_", " ");
+      var value = parseInt(input.value, 10);
+      if (value > 0) {
+        value = isNaN(value) ? 0 : value;
+        value--;
+        input.value = value;
+        shoppingCart.subtractProduct(currentVege,value);
+          var costS=event.target.parentElement.getAttribute('cost-sultan');
+            if(costS!='-') {
+                costSultan -= parseFloat(costS);
+                shoppingCart.subtractSupplierLst(currentVege,"Sultan",value);
+            }
+            if(costSultan<0) costSultan=0;
+            var costD=event.target.parentElement.getAttribute('cost-dov');
+            if(costD!='-') {
+                costDov -= parseFloat(costD);
+                costDov=Math.round(costDov * 100) / 100;
+                //console.log("i-n-c-r-e-a-s-e dovvv basic name:"+currentVege+" real: "+realNameD+" link: "+prodLinkD+" new cost:"+costD)
+                shoppingCart.subtractSupplierLst(currentVege,"Dov",value);
+            }
+            if(costDov<0) costDov=0;
+            var costK=event.target.parentElement.getAttribute('cost-kishurit');
+            if(costK!='-') {
+                costKishurit -= parseFloat(costK);
+                shoppingCart.subtractSupplierLst(currentVege,"Kishurit",value);
+            }
+            if(costKishurit<0)costKishurit=0;
+            tbl.innerHTML = `<tbody>
+                <tr>
+                    <td>דוב</td>
+                    <td>כישורית</td>
+                    <td>סולטן</td>
+                </tr>
+                <tr>
+                    <td>${costDov}</td>
+                    <td>${costKishurit}</td>
+                    <td>${costSultan}</td>
+                </tr>
+            </tbody>`;
+        }
+    }
+</script>
+</html>

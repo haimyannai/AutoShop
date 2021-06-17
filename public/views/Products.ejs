@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+<link rel="stylesheet" href="homepagedesign.css" />
+<link rel="stylesheet" href="login window.css" />
+<link rel="stylesheet" href="table.css" />
+    <link href='https://fonts.googleapis.com/css?family=Alex Brush' rel='stylesheet'>
+</head>
+<body>
+
+<div class="logo">
+    <img src="logo.jpg" alt="logop" width="1000" height="331">
+    <div class="welcome">Welcome</div>
+</div>
+
+<div class="menu">
+
+        <div class="b">menu</div>
+
+    <button class="big-button" onclick="moveProdPage()">Products</button>
+    <button class="big-button" onclick="movAboutPage()">About</button>
+    <button class="big-button" onclick="myFunction()">What new</button>
+    <button class="big-button" onclick="moveBuyPage()">buy</button>
+    <button class="big-button" onclick="moveHomePage()">Home</button>
+
+</div>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+
+<div class="centered">
+<div class="content-table" data-url="/Products"></div>
+
+<script>
+function moveProdPage() {
+  location.href = "/Products2";
+}
+function moveHomePage() {
+  location.href = "/";
+}
+
+function moveBuyPage() {
+  location.href = "/buy";
+}
+
+
+
+    async function updateTable(root){
+        const table = root.querySelector(".content-table");
+        const response = await fetch(root.dataset.url);//await fetch("/data");
+        const headers = ['שם מוצר', 'יחידה', 'מחיר', 'אתר', 'מוצר בסיסי'];
+        const data = await response.json();
+        console.log("data");
+        console.log(root.dataset.url)
+        for(let val of data) {
+            console.log(val);
+        }
+        // Clear Table
+        table.querySelector("thead tr").innerHTML = '';
+        table.querySelector("tbody").innerHTML = '';
+        for (const header of headers){
+            table.querySelector('thead tr').insertAdjacentHTML('afterbegin', `<th>${ header }</th>`);
+        }
+        for (const row of data){
+            table.querySelector('tbody').insertAdjacentHTML('beforebegin', `
+            <tr>
+            <td>${ row.Base_Prod }</td>
+            <td>${ row.Prod_Web }</td>
+            <td>${ row.Prod_Price }</td>
+            <td>${ row.Prod_Unit }</td>
+            <td>${ row.Prod_Name }</td>
+            </tr>
+        `);
+        }
+    }
+
+
+    for (const root of document.querySelectorAll('.content-table[data-url]')){
+        const table = document.createElement('table');
+        table.classList.add('content-table')
+        table.innerHTML = `
+            <thead>
+                <tr></tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Loading</td>
+                </tr>
+            </tbody>
+        `;
+        root.append(table);
+        updateTable(root);
+
+    }
+console.log("test");
+
+
+</script>
+</div>
+</body>
+</html>

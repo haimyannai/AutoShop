@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+<link rel="stylesheet" href="homepagedesign.css" />
+<link rel="stylesheet" href="login window.css" />
+<link rel="stylesheet" href="table.css">
+<link href='https://fonts.googleapis.com/css?family=Alex Brush' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="headWelcome" >
+    <div class="topHead" style="background: linear-gradient(to bottom, #4caf50 0%, #80bd5f 100%); height: 90px;"></div>
+    <div class="downHead" style="background-color: white; height: 90px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);"></div>
+    <img src="logoShape.png" style="position:relative;left:700px;top:-180px;width: 330px;height: 180px;" alt="shape">
+    <h1 style="position:relative;top:-300px;color: white; left:785px;font-family: 'Exo', sans-serif;">Auto shop</h1>
+</div>
+
+<div class="menuHead" style="position: relative;height: 100px; left:550px; width: 700px; top:-260px;">
+<button class="menuButton" style="position: relative; " onclick="movWhatsNewPage()">מה חדש</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movConnectPage()">צרו קשר</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movAboutPage()">אודות</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveBuyPage()">רכישת סל</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveHomePage()">דף הבית</button>
+</div>
+
+
+<div class="w3-content w3-section" style="position:relative;top:-330px;left:1450px;max-width:443px; max-height: 300px;">
+  <img class="mySlides" src="1.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="2.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="3.jpg" style="width:100%;border-bottom-right-radius:30px;">
+  <img class="mySlides" src="4.jpg" style="width:100%;border-bottom-right-radius:30px;">
+</div>
+
+<div class="information" style="position:relative; background: #f7fbf6; border-top-right-radius: 5000px;border-bottom-right-radius: 5000px;top:-550px; left:-500px;font-size:23px;text-align:right;font-family: Assistant;color: gray;">
+    <p>
+    <br>עדכון אחרון 20.05.2021
+    <br><br>נוסף ספק חדש: דוב מרקט (5.5.21)
+    <br>נוספה אפשרות לפיצול הזמנה (10.5.21)
+    <br>סודר הבאג והשמות מסודרים באופן תקין (11.5.21)
+    <br>נוספה אפשרות לפיצול הזמנה (10.5.21)
+    </p>
+</div>
+
+</body>
+
+<script>
+
+    function moveProdPage() {
+  location.href = "/Products2";
+}
+function moveHomePage() {
+  location.href = "/";
+}
+
+function moveBuyPage() {
+  location.href = "/buy";
+}
+
+function movAboutPage() {
+    location.href = "/About";
+}
+
+function movConnectPage() {
+    location.href = "/Connect";
+}
+
+function movWhatsNewPage() {
+    location.href = "/WhatsNew";
+}
+
+    //Allow the slide show in the right page
+var myIndex = 0;
+carousel();
+
+function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}
+  x[myIndex-1].style.display = "block";
+  setTimeout(carousel, 2000); // Change image every 2 seconds
+}
+
+</script>
+</html>

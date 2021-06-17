@@ -1,0 +1,506 @@
+.logo {
+  position: relative;
+  height: 331px;
+  width: 600px;
+  background-color: #eaf7ee;
+  border-top-left-radius:20px;border-top-right-radius:20px;
+}
+
+.logo img {
+
+position: relative;
+  left: 500px;
+  top: 0px;
+  border-top-left-radius:20px;border-top-right-radius:20px;
+
+}
+
+.welcome {
+  position: absolute;
+  bottom: 50px;
+  left: 20px;
+  font-size: 150px;
+
+  font-family: 'Alex Brush';
+}
+
+.menu{
+  position: relative;
+  top: -20px;
+  height: 150px;
+  width: 1500px;
+  font-family: 'Alex Brush';
+  font-size: 50px;
+  border-bottom-left-radius:20px;border-bottom-right-radius:20px;
+
+
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+
+}
+
+.menuButton {
+  background-color: transparent;
+  color: gray;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+  font-family: Assistant;
+  font-size: 24px;
+}
+
+.menuButton:hover, .menuButton:focus {
+  text-decoration: underline;
+}
+
+.buybtn:hover, .buybtn:focus {
+  text-decoration: underline;
+}
+
+
+
+/bottom/
+.big-button{
+  font-family: 'Ariel';
+  font-size: 20px;
+  left:500px;
+  top: 20px;
+  position: relative;
+  background-color: #e7e7e7;
+position: center;
+  border-radius: 8px;
+  transition-duration: 0.4s;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+
+  border: 1px solid green;
+
+}
+
+.big-button:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 20%;
+  padding: 15px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive layout - makes the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width:600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+.centered {
+  position: absolute;
+  left: 400px;
+  text-align: center;
+}
+div.b {
+text-align: center;
+   -webkit-text-decoration-line: underline; /* Safari */
+   text-decoration-line: underline;
+}
+
+.counter {
+    width: 150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.counter input {
+    width: 50px;
+    border: 0;
+    line-height: 30px;
+    font-size: 20px;
+    text-align: center;
+    background: linear-gradient(to bottom, green 50%, #80bd5f 100%);
+    color: #fff;
+    appearance: none;
+    outline: 0;
+    border-radius: 20px;
+}
+.counter span {
+    display: block;
+    font-size: 25px;
+    padding: 0 10px;
+    cursor: pointer;
+
+    user-select: none;
+}
+
+.mySlides {
+    display:none;
+}
+
+.submit_list {
+  background: linear-gradient(to bottom, #4caf50 0%, #80bd5f 100%); /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+   position: absolute;
+  left: 800px;
+  text-align: center;
+  top:844px;
+  font-family: Assistant;
+}
+
+.submit_list:hover, .submit_list:focus {
+    background-color: green;
+    color: #3e8e41;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+
+
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+    border-radius: 50px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+    border-radius: 50px;
+}
+
+.myTable{
+    border-radius: 30px;
+}
+
+.main_page{
+    position: relative;
+    left: 200px;
+}
+
+.TotalSum{
+    position:relative;
+    top:-270px;
+    left:100px;
+    border-radius: 30px;
+    background: linear-gradient(to bottom, #faebd6 50%, #faf3e8 100%);
+    width: 300px;
+    height: 570px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    font-family: Assistant;
+}
+
+.miss{
+    position: relative;
+    background-color: white;
+    width: 280px;
+    height: 280px;
+    left:10px;
+    overflow: scroll;
+}
+
+.calcD{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    font-family: Assistant;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    position: relative;
+    top:-50px;
+}
+
+.calcD:hover {background-color: #3e8e41}
+
+.calD:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.calcK{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    font-family: Assistant;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    position: relative;
+    top:-50px;
+}
+
+.calcK:hover {background-color: #3e8e41}
+
+.calcK:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.calcS{
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+    display: inline-block;
+    font-family: Assistant;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    position: relative;
+    top:-50px;
+}
+
+.calcS:hover {background-color: #3e8e41}
+
+.calcS:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
+
+.calcAnotherSplit{
+    font-family: Assistant;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 28px;
+    padding: 20px;
+    width: 400px;
+    border-radius: 30px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+    position: relative;
+    top:620px;
+    left:-700px;
+}
+
+.calcAnotherSplit span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.calcAnotherSplit span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.calcAnotherSplit:hover span {
+  padding-right: 25px;
+}
+
+.calcAnotherSplit:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+
+/* Popup container - can be anything you want */
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* The actual popup */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+
+}
+
+/* Toggle this class - hide and show the popup */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+
+}
+
+@-webkit-keyframes fadeOut {
+  from {opacity: 1;}
+  to {opacity: 0;}
+}
+
+
+
+
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+
+.holder {
+  background-color:white;
+    border-bottom-left-radius: 20px;
+    position: relative;
+    left:3px;
+  width:280px;
+  height:526px;
+  overflow:hidden;
+  padding:10px;
+  font-family: Assistant;
+    color: green;
+    font-size: 20px;
+    text-align: right;
+    overflow: scroll;
+}
+.holder .mask {
+  position: relative;
+  left: 0px;
+  top: 10px;
+  width:250px;
+  height:240px;
+  overflow: hidden;
+}
+.holder ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+  position: relative;
+}
+.holder ul li {
+  padding:10px 0px;
+}
+.holder ul li a {
+  color: gray;
+  text-decoration:none;
+}
+
+
+
+.hide {
+  display: none;
+}
+
+.myDIV:hover + .hide {
+  display: block;
+  color: gray;
+    font-size: 15px;
+}

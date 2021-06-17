@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+<link rel="stylesheet" href="homepagedesign.css" />
+<link rel="stylesheet" href="login window.css" />
+<link rel="stylesheet" href="table.css">
+<link href='https://fonts.googleapis.com/css?family=Alex Brush' rel='stylesheet'>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@1,500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="headWelcome" >
+    <div class="topHead" style="background: linear-gradient(to bottom, #4caf50 0%, #80bd5f 100%); height: 90px;"></div>
+    <div class="downHead" style="background-color: white; height: 90px; box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);"></div>
+    <img src="logoShape.png" style="position:relative;left:700px;top:-180px;width: 330px;height: 180px;" alt="shape">
+    <h1 style="font-family: 'Exo', sans-serif;position:relative;top:-300px;color: white; left:785px;">Auto shop</h1>
+</div>
+
+<div class="menuHead" style="position: relative;height: 100px; left:550px; width: 700px; top:-260px;">
+<button class="menuButton" style="position: relative; " onclick="movWhatsNewPage()">מה חדש</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movConnectPage()">צרו קשר</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="movAboutPage()">אודות</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveBuyPage()">רכישת סל</button>
+<label class="control-label" style="font-size: 16px;color: gray;">|</label>
+<button class="menuButton" style="position: relative; " onclick="moveHomePage()">דף הבית</button>
+</div>
+
+<div class="main_page">
+    <div class="column">
+    <div class="TotalSum">
+        <h1>סולטן</h1>
+        <div class="miss">
+        <div class="missS">
+        <ul id="ulSultan" style="position:relative; font-size: 23px; top:-26px;">
+        </ul>
+        </div>
+    </div>
+        <p style="font-size: 23px;"><b>סה"כ הזמנה</b></p>
+        <p style="font-size: 19px;position: relative;top:-16px;">לא כולל משלוח</p>
+        <p id="total_sum_sultan" style="position: relative; top:-40px; font-size: 40px;"></p>
+        <button class="calcS" style="position: relative;top:-75px;" onclick="function moveSultan() {
+                var shoplst = window.localStorage.getItem('Shopping cart list');
+                var products = JSON.parse(shoplst);
+                var data = {'site': 'sultan', 'purchaseList':products['prodsSultan']};
+                automatePurachase(data);
+        }
+        moveSultan() ">הזמן כעת</button>
+    </div>
+    </div>
+    <div class="column">
+    <div class="TotalSum">
+        <h1>כישורית</h1>
+        <div class="miss">
+        <div class="missK">
+        <ul id="ulKishurit"style="position:relative; font-size: 23px; top:-26px;">
+        </ul>
+        </div>
+    </div>
+        <p style="font-size: 23px;"><b>סה"כ הזמנה</b></p>
+        <p style="font-size: 19px;position: relative;top:-16px;">לא כולל משלוח</p>
+        <p id="total_sum_kishurit" style="position: relative;top:-40px; font-size: 40px;"></p>
+        <button class="calcK" style="position: relative;top:-75px;" onclick="function moveKishurit() {
+                var shoplst = window.localStorage.getItem('Shopping cart list');
+                var products = JSON.parse(shoplst);
+                var data = {'site': 'kishurit', 'purchaseList':products['prodsKishurit']};
+                automatePurachase(data);
+        }
+        moveKishurit()">הזמן כעת</button>
+    </div>
+    </div>
+    <div class="column">
+    <div class="TotalSum">
+        <h1>דוב</h1>
+        <div class="miss">
+        <div class="missD">
+        <ul id="ulDov"style="position:relative; font-size: 23px; top:-26px;">
+        </ul>
+        </div>
+    </div>
+        <p style="font-size: 23px;"><b>סה"כ הזמנה</b></p>
+        <p style="font-size: 19px;position: relative;top:-16px;">לא כולל משלוח</p>
+        <p id="total_sum_dov" style="position: relative;top:-40px; font-size: 40px;"></p>
+        <button class="calcD" style="position: relative;top:-75px;" onclick="function moveDov() {
+                var shoplst = window.localStorage.getItem('Shopping cart list');
+                var products = JSON.parse(shoplst);
+                var data = {'site': 'dov', 'purchaseList':products['prodsDov']};
+                automatePurachase(data);
+        }
+        moveDov()">הזמן כעת</button>
+    </div>
+    </div>
+</div>
+<div class="question" style="position: relative; left:40px; top:-300px;">
+<p style="font-family: Assistant; position: relative; top:650px; font-size: 30px; left:-500px;">מעוניין להוזיל עוד?</p>
+<button class="calcAnotherSplit" style="vertical-align:middle;left:-600px;" onclick="calcAnotherSplit()"><span>בדוק אפשרות לפצל הזמנה</span></button>
+</div>
+
+
+<div class id="separateOrder">
+</div>
+
+</body>
+
+<script>
+    //move button functions
+
+    var prodsKishuritAuto = [];
+    var prodsSultanAuto = [];
+    var prodsDovAuto = [];
+    var supplierNameBAuto = '';
+    var supplierNameAAuto = '';
+
+  function SeparatOrderAutoA(){
+ var data = null;
+      var shoplst = null;
+      var products = null;
+      if(supplierNameAAuto === 'Kishurit'){
+          data = {'site': 'kishurit', 'purchaseList':prodsKishuritAuto};
+      }
+      if(supplierNameAAuto === 'Sultan'){
+          data = {'site': 'sultan', 'purchaseList':prodsSultanAuto};
+      }
+      if(supplierNameAAuto === 'Dov'){
+          data = {'site': 'dov', 'purchaseList':prodsDovAuto};
+      }
+    automatePurachase(data)
+  }
+    function SeparatOrderAutoB(){
+      var data = null;
+      var shoplst = null;
+      var products = null;
+      if(supplierNameBAuto === 'Kishurit'){
+          data = {'site': 'kishurit', 'purchaseList':prodsKishuritAuto};
+      }
+      if(supplierNameBAuto === 'Sultan'){
+          data = {'site': 'sultan', 'purchaseList':prodsSultanAuto};
+      }
+      if(supplierNameBAuto === 'Dov'){
+          data = {'site': 'dov', 'purchaseList':prodsDovAuto};
+      }
+       automatePurachase(data);
+  }
+
+
+
+    function moveProdPage() {
+  location.href = '/Products2';
+}
+async function automatePurachase(purchaseList) {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(purchaseList)
+
+    }
+    const respone = await fetch('/Pup', options);
+
+}
+function moveHomePage() {
+  location.href = "/new";
+}
+
+function moveBuyPage() {
+  location.href = "/buy";
+}
+
+function movAboutPage() {
+    location.href = "/About";
+}
+
+function movConnectPage() {
+    location.href = "/Connect";
+}
+
+function movWhatsNewPage() {
+    location.href = "/WhatsNew";
+}
+
+function moveSultan() {
+    var shoplst = window.localStorage.getItem('Shopping cart list');
+    var products = JSON.parse(shoplst);
+    var data = {'site': 'sultan', 'purchaseList':products['prodsSultan']};
+    var fenetrePopup = window.open('http://sultan.pricecall.co.il/');
+
+}
+
+class Prod{
+    constructor(basicName,realName, quantity, link=null,cost=null) {
+    this.basicName = basicName;
+    this.quantity = quantity;
+    this.realName=realName;
+    this.link = link;
+    this.cost=cost;
+  }
+}
+
+//display a continues window when press on the separate button
+async function calcAnotherSplit() {
+      if(countDispaly === 0){
+          var shoplst = window.localStorage.getItem('Shopping cart list');
+    var products = JSON.parse(shoplst);
+    var data = {'purchaseList': products};
+        const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    }
+    //move the data into python file that calc the split order
+    const respone = await fetch('/SeparationOp', options);
+    const allseparate=await respone.json();
+    if(allseparate!="0") {
+        var supplierNameA = "";
+        var supplierNameB = "";
+        var prodsSultan = [];
+        var prodsKishurit = [];
+        var prodsDov = [];
+        for (const r of allseparate) {
+
+
+            if (supplierNameA !== r.supplierName && supplierNameA === "") {
+                supplierNameA = r.supplierName;
+                supplierNameAAuto = supplierNameA
+            } else if (r.supplierName !== supplierNameA && r.supplierName !== supplierNameB && supplierNameB === ""){
+                 supplierNameB = r.supplierName;
+                 supplierNameBAuto = supplierNameB;
+            }
+            if (r.supplierName === "Kishurit") {
+                var newProd = new Prod(r.basicName, r.realName, r.quantity, null, parseFloat(r.cost))
+                prodsKishuritAuto.push({"basicName":r.basicName, "realName":r.realName, "quantity":r.quantity, "link":null,"cost":parseFloat(r.cost)});
+                prodsKishurit.push(newProd);
+            } else if (r.supplierName === "Sultan") {
+                var newProd = new Prod(r.basicName, r.realName, r.quantity, null, parseFloat(r.cost))
+                 prodsSultanAuto.push({"basicName":r.basicName, "realName":r.realName, "quantity":r.quantity, "link":null,"cost":parseFloat(r.cost)});
+                prodsSultan.push(newProd)
+            } else if (r.supplierName === "Dov") {
+                var newProd = new Prod(r.basicName, r.realName, r.quantity, r.link, parseFloat(r.cost))
+                prodsDovAuto.push({"basicName":r.basicName, "realName":r.realName, "quantity":r.quantity, "link":r.link,"cost":parseFloat(r.cost)});
+                prodsDov.push(newProd)
+            }
+        }
+        var tempArr = []
+        tempArr.push(prodsSultan.length)
+        tempArr.push(prodsDov.length)
+        tempArr.push(prodsKishurit.length)
+        var countSplit = 0
+        for(var r of tempArr) {
+            if(r > 0){
+                countSplit++;
+            }
+        }
+        if(countSplit <= 1){
+             document.getElementById('separateOrder').innerHTML +=
+                '<h1 style="position: relative; top:360px; left:-600px;font-family: Assistant;">לא נמצאה חלוקה מוזלת יותר עבור הסל</h1>'
+            return
+        }
+
+
+        if (countSplit > 1) {
+            document.getElementById('separateOrder').innerHTML +=
+                '<h1 id="title" style="position: relative; top:360px; left:-700px;text-align:center;font-family: Assistant;"></h1>'
+                + '<div class=" TotalSum" style="position: relative; top:400px; left:480px;"></div> '
+                + '<img src="+.jpg"  style="position: relative; height:100px; width: 100px; top:50px; left:840px;"alt="+">'
+                + '<h1 id="supplierA" style="position: relative;font-family: Assistant;left:600px;top:-270px;"></h1><div class="miss" style="position:relative;top:-280px;left:490px;"><div class="missK"><ul id="ulsupplierA"style="position:relative;font-family: Assistant; font-size: 23px; top:-26px;"> </ul> </div> </div>'
+                + '<div class=" TotalSum" style="position: relative; top:-640px; left:1000px;"></div>'
+                + '<h1 id="supplierB" style="font-family: Assistant;position: relative;left:1100px; top:-1200px;"></h1><div class="miss" style="top:-1210px;left:1010px;font-family: Assistant;"><div class="missK"><ul id="ulsupplierB"style="position:relative; font-size: 23px; top:-26px;"> </ul> </div> </div>'
+                + '<button class="calcD" style="position: relative; top:-1100px; left:570px;" onclick="SeparatOrderAutoA()">הזמן כעת</button>'
+                + '<button class="calcD" style="position: relative; top:-1100px; left:950px;" onclick="SeparatOrderAutoB()">הזמן כעת</button>'
+                + '<p style="position:relative;font-family: Assistant;right:-500px;top:-1280px;font-size: 23px;"><b>סה"כ הזמנה (לא כולל משלוח)</b></p>'
+                + '<p style="position:relative;font-family: Assistant;right:-1020px;top:-1329px;font-size: 23px;"><b>סה"כ הזמנה (לא כולל משלוח)</b></p>'
+                + '<p id="total_sum_supplierA" style="position: relative;top:-1370px; right:-590px;font-family: Assistant; font-size: 40px;"></p>'
+                + '<p id="total_sum_supplierB" style="position: relative;top:-1460px; right:-1110px;font-family: Assistant; font-size: 40px;"></p>'
+
+            var sumA=0.0;
+            var sumB=0.0;
+            if (supplierNameA == 'Kishurit') {
+                document.getElementById('supplierA').innerHTML += '<b>' + 'כישורית' + '</b>';
+                for (const row of prodsKishurit) {
+                    sumA+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierA').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierA').innerHTML += '<br>';
+            } else if (supplierNameA == 'Dov') {
+                document.getElementById('supplierA').innerHTML += '<b>' + 'דוב' + '</b>';
+                for (const row of prodsDov) {
+                    sumA+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierA').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierA').innerHTML += '<br>';
+            } else if (supplierNameA == 'Sultan') {
+                document.getElementById('supplierA').innerHTML += '<b>' + 'סולטן' + '</b>';
+                for (const row of prodsSultan) {
+                    sumA+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierA').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierA').innerHTML += '<br>';
+            }
+
+            if (supplierNameB == 'Kishurit') {
+                document.getElementById('supplierB').innerHTML += '<b>' + 'כישורית' + '</b>';
+                for (const row of prodsKishurit) {
+                    sumB+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierB').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierB').innerHTML += '<br>';
+            } else if (supplierNameB == 'Dov') {
+                document.getElementById('supplierB').innerHTML += '<b>' + 'דוב' + '</b>';
+                for (const row of prodsDov) {
+                    sumB+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierB').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierB').innerHTML += '<br>';
+            } else if (supplierNameB == 'Sultan') {
+                document.getElementById('supplierB').innerHTML += '<b>' + 'סולטן' + '</b>';
+                for (const row of prodsSultan) {
+                    sumB+=parseFloat(row.cost)*parseInt(row.quantity);
+                    document.getElementById('ulsupplierB').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">' + row.basicName + ' ' + row.quantity + '</dt>';
+                }
+                document.getElementById('ulsupplierB').innerHTML += '<br>';
+            }
+            document.getElementById('total_sum_supplierA').innerHTML += '<dt>' + '₪'+ sumA.toFixed(1) + '</dt>';
+            document.getElementById('total_sum_supplierB').innerHTML += '<dt>'+ '₪' +  sumB.toFixed(1)+ '</dt>';
+            var res=sumA+sumB;
+            document.getElementById('title').innerHTML = 'נמצאה הזמנה מוזלת, המכילה את כלל המוצרים על סך '+ res.toFixed(1) +' שקלים';
+        }
+       countDispaly++;
+    }
+    else
+    {
+                countDispaly++;
+                document.getElementById('separateOrder').innerHTML +=
+                '<h1 style="position: relative; top:360px; left:-600px;font-family: Assistant;">לא נמצאה חלוקה מוזלת יותר עבור הסל</h1>'
+    }
+      }
+
+}
+var countDispaly = 0
+var shoplst=window.localStorage.getItem('Shopping cart list');
+var products = JSON.parse(shoplst);
+var prodsSultan=products['prodsSultan'];
+var missSultan=products['missSultan'];
+var prodsDov=products['prodsDov'];
+var missDov=products['missDov'];
+var prodsKishurit=products['prodsKishurit'];
+var missKishurit=products['missKishurit'];
+
+
+//put exist list to any supplier
+if(products['prodsDov'].length!==0){
+    for(const row of prodsDov) {
+        document.getElementById('ulDov').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">'+row.basicName+' '+row.quantity+'</dt>';
+    }
+    document.getElementById('ulDov').innerHTML += '<br>';
+}
+
+if(products['prodsKishurit'].length!==0){
+    for(const row of prodsKishurit) {
+        document.getElementById('ulKishurit').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">'+row.basicName+' '+row.quantity+'</dt>';
+    }
+    document.getElementById('ulKishurit').innerHTML += '<br>';
+}
+
+if(products['prodsSultan'].length!==0){
+    for(const row of prodsSultan) {
+        document.getElementById('ulSultan').innerHTML += '<dt style="text-align: right;font-size: 18px; color:#9BBB59;">'+row.basicName+' '+row.quantity+'</dt>';
+    }
+    document.getElementById('ulSultan').innerHTML += '<br>';
+}
+
+//put miss list to any supplier
+if(products['missSultan'].length !== 0){
+        document.getElementById('ulSultan').innerHTML+='<dt style="text-align: right;color:#C9C9C9; font-size: 18px;" >'+'חוסרים מהרשימה: '+products['missSultan'].length+'</dt>';
+    for(const row of missSultan) {
+        document.getElementById('ulSultan').innerHTML += '<dt style="text-align: right;font-size: 18px;color:#C9C9C9;">'+row.basicName+'</dt>';
+    }
+}
+
+
+if(products['missDov'].length !== 0){
+    document.getElementById('ulDov').innerHTML+='<dt style="text-align: right; font-size: 18px;color:#C9C9C9;" >'+'חוסרים מהרשימה: '+products['missDov'].length+'</dt>';
+    for(const row of missDov) {
+        document.getElementById('ulDov').innerHTML += '<dt style="text-align: right;font-size: 18px;color:#C9C9C9;">'+row.basicName+'</dt>';
+    }
+}
+
+if(products['missKishurit'].length !== 0){
+   document.getElementById('ulKishurit').innerHTML+='<dt style="text-align: right; font-size: 18px;color:#C9C9C9;" >'+'חוסרים מהרשימה: '+products['missKishurit'].length+'</dt>';
+    for(const row of missKishurit) {
+        document.getElementById('ulKishurit').innerHTML += '<dt style="text-align: right;font-size: 18px;color:#C9C9C9;">'+row.basicName+'</dt>';
+    }
+}
+
+//update total sum of suppliers
+document.getElementById('total_sum_sultan').innerHTML += '<b>'+ '₪'+window.localStorage.getItem('sum sultan')+'</b>';
+document.getElementById('total_sum_kishurit').innerHTML += '<b>'+ '₪'+window.localStorage.getItem('sum kishurit')+'</b>';
+document.getElementById('total_sum_dov').innerHTML += '<b>'+ '₪'+window.localStorage.getItem('sum dov')+'</b>';
+
+
+
+</script>
+</html>
